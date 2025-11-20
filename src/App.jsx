@@ -8,8 +8,6 @@ const Hello = (props) => {
     )
 }
 
-
-
 const App = () => {
   return (
     <>
