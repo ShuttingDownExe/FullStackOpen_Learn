@@ -3,7 +3,7 @@ const Hello = (props) => {
         return new Date()   .getFullYear() - props.age
     }
     return (
-        <h1>Hello {props.name}</h1>
+        <p>Hello {props.name}</p>
 
     )
 }
