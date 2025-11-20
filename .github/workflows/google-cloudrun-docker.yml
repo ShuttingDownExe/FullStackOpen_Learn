@@ -96,3 +96,9 @@ jobs:
         run: |2-
 
           echo ${{ steps.deploy.outputs.url }}
+      - name: 'Make Cloud Run service public'
+        run: |
+          gcloud run services add-iam-policy-binding "${{ env.SERVICE }}" \
+            --region="${{ env.REGION }}" \
+            --member="allUsers" \
+            --role="roles/run.invoker"
