@@ -62,7 +62,7 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
           service_account: 'github-actions-deployer-705@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
-          token_format: 'access-token'
+          token_format: 'access_token'
 
       # BEGIN - Docker auth and build
       #
