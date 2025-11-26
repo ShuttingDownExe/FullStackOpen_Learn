@@ -58,11 +58,13 @@ const Objects = () => {
   )
 }
 
+
+
 const App = () => {
   return (
     <>
         <h1>Hello There</h1>
-        <Hello name="Rishith"/>
+        <Hello name="Rishith" age={21}/>
         <Counter/>
         <Arrays/>
         <Objects/>
