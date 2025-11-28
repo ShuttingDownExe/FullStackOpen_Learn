@@ -11,6 +11,7 @@ on:
 jobs:
   enforce:
     runs-on: ubuntu-latest
+    permissions: read-all
     steps:
       - name: Enforce directional branch flow
         run: |
