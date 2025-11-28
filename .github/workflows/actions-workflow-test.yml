@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Testing GH Actions
+on:
+  repository_dispatch:
+    types: [ test-event ]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello World!"
