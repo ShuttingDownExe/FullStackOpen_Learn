@@ -1,0 +1,55 @@
+name: Branch Flow Enforcement
+
+on:
+  pull_request:
+    branches:
+      - main
+      - test
+      - build
+      - dev
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce directional branch flow
+        run: |
+          BASE="${{ github.base_ref }}"
+          HEAD="${{ github.head_ref }}"
+
+          echo "Base branch: $BASE"
+          echo "Head branch: $HEAD"
+
+          ALLOWED=0
+
+          # 1) PRs into dev are allowed from any branch
+          if [ "$BASE" = "dev" ]; then
+            ALLOWED=1
+          fi
+
+          # 2) dev -> build only
+          if [ "$BASE" = "build" ] && [ "$HEAD" = "dev" ]; then
+            ALLOWED=1
+          fi
+
+          # 3) build -> test only
+          if [ "$BASE" = "test" ] && [ "$HEAD" = "build" ]; then
+            ALLOWED=1
+          fi
+
+          # 4) test -> main only
+          if [ "$BASE" = "main" ] && [ "$HEAD" = "test" ]; then
+            ALLOWED=1
+          fi
+
+          if [ "$ALLOWED" -ne 1 ]; then
+            echo "::error::Invalid merge direction: $HEAD -> $BASE is not allowed."
+            echo "Allowed flows are:"
+            echo "  * any -> dev"
+            echo "  * dev -> build"
+            echo "  * build -> test"
+            echo "  * test -> main"
+            exit 1
+          else
+            echo "Branch flow OK: $HEAD -> $BASE"
+          fi
