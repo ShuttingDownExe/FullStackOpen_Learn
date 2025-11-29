@@ -1,73 +1,81 @@
-import { useState } from "react"
+import {useEffect, useState} from "react";
 
-const Hello = (props) => {
-    const birthYear = () => {
-        return new Date().getFullYear() - props.age
+const DisplayBasicText = (props) => {
+    return(
+        <p>{props.text}</p>
+    )
+}
+
+const DisplayHeader = (props) => {
+    return(
+        <h1>{props.text}</h1>
+    )
+}
+
+const ButtonWithAction = (props) => {
+    return(
+        <button onClick={props.onClick}>
+            {props.text}
+        </button>
+    )
+}
+
+const ManualCounter = () => {
+    const [count, setCount] = useState(0);
+    const incrementCount = () => {
+        setCount(count+1);
+        console.log(count);
     }
-    return (
+    const  decrementCount = () => {
+        setCount(count-1)
+        console.log(count)
+    }
+    return(
         <div>
-        <p>Hello {props.name}</p>
-        <p>You were born in {birthYear()}</p>
+            <p>{count}</p>
+            <ButtonWithAction text={"+"} onClick={incrementCount}/>
+            <ButtonWithAction text={"-"} onClick={decrementCount}/>
         </div>
     )
 }
 
-const Counter = () => {
-  const [count, setCount] = useState(0)
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-    </div>
-  )
+const TimedCounter =() => {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        const id = setInterval(() => {
+            setCount((c) => c+1);
+        }, 1000);
+        return () => clearInterval(id);
+    }, []);
+    return(
+        <p>{count}</p>
+    )
 }
 
-const Arrays = () => {
-  const t = [1,2,3,4,5]
-  t.push(6)
-  console.log(t.length)
-  t.forEach(value => console.log(value))
-  return (
-    <div>
-      {t.map(value => <span key={value}> {value} </span>)}
-    </div>
-  )
+const RegExMatch = () => {
+    const [match, setMatch] = useState(false)
+    const RegEx = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+
+    return(
+        <div>
+            <input id={"matchInput"} onChange={
+                (event) => {
+                    setMatch(RegEx.test(event.target.value))
+                }
+            }/>
+            <button disabled={!match}>{match?"Valid":"Invalid"}</button>
+        </div>
+    )
 }
-
-const Objects = () => {
-  const person1 = {
-    name: "Rishith",
-    age: 21,
-    gender: "male",
-    education: {
-      degree: "B.Tech",
-      year: 2024
-    }
-  }
-  const person2 = {
-    name: "Alice",
-    age: 25,
-    gender: "female",
-    iq: 130
-  }
-
-  return(
-    <div>
-      <p>{person1.name} is {person1.age} years old.</p>
-      <p>{person2.name} is {person2.age} years old.</p>
-    </div>
-  )
-}
-
-
 
 const App = () => {
   return (
     <>
-        <h1>Hello nerd</h1>
-        <Hello name="Rishith" age={21}/>
-        <Counter/>
-        <Arrays/>
-        <Objects/>
+        <DisplayHeader text={"Full Stack Open Course"}/>
+        <DisplayBasicText text={"Hello There"}/>
+        <ManualCounter/>
+        <TimedCounter/>
+        <RegExMatch/>
     </>
   )
 }
