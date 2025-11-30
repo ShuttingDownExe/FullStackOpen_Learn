@@ -35,10 +35,10 @@ on:
       - 'main'
 
 env:
-  PROJECT_ID: 'devopslearn-477411' # TODO: update to your Google Cloud project ID
+  PROJECT_ID: 'devopslearn-477411'
   REGION: 'asia-south1'
-  SERVICE: 'fso-learn' # TODO: update to your service name
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/433475726149/locations/global/workloadIdentityPools/github-actions-pool/providers/github' # TODO: update to your workload identity provider
+  SERVICE: 'fso-learn'
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/433475726149/locations/global/workloadIdentityPools/github-actions-pool/providers/github'
 
 jobs:
   deploy:
