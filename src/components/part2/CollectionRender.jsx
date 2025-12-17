@@ -1,11 +1,28 @@
+/**
+ * @typedef {Object} Note
+ * @property {number|string} id
+ * @property {string} content
+ * @property {boolean} [important]
+ */
+
+const Note = ({note}) => {
+    return(
+        <li>
+            {note.content}
+        </li>
+    )
+}
+/**
+ * @param {{ notes: Array<Note>}}
+ */
 const CollectionRender = ({notes}) => {
     return(
         <>
             <h3>Notes</h3>
             <ul>
-                <li>{notes[0].content}</li>
-                <li>{notes[1].content}</li>
-                <li>{notes[2].content}</li>
+                {notes.map(note =>
+                    <Note key={note.id} note={note}/>
+                )}
             </ul>
         </>
     )
