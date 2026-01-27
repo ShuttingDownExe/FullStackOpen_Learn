@@ -1,47 +1,38 @@
-import CollectionRender from "./CollectionRender.jsx";
-import {useState} from "react";
+import { useState } from "react"
 
-/**
- * @typedef {Object} Note
- * @property {number|string} id
- * @property {string} content
- * @property {boolean} [important]
- */
-
-const Notes = () => {
-    const [notes, setNotes] = useState(
-        [
-            {
-                id: 1,
-                content: 'HTML is easy',
-                important: true}
-            ,
-            {
-                id: 2,
-                content: 'Browser can execute only JavaScript',
-                important: false
-            },
-            {
-                id: 3,
-                content: 'GET and POST are the most important methods of HTTP protocol',
-                important: true
-            }
-        ]
+const PrintNote = ({note}) => {
+    return(
+        <li>
+            {note.content}
+        </li>
     )
+}
+
+const Notes =(props) => {
+    const [notes, setNotes] = useState(props.notes)
+    const [newNote, SetNewNote] = useState('a new note');
 
     const addNote = (event) => {
-        event.preventDefault();
-        console.log("button clicked",event.target)
+        event.preventDefault() //Prevent the page from reloading by
+        console.log("Button Clicked")
     }
 
-    return (
-        <>
-            <CollectionRender notes={notes}/>
+    const handleNoteChange =(event) => {
+        console.log(event.target.value)
+        SetNewNote(event.target.value)
+    }
+    return(
+        <div>
+            <ul>
+                {notes.map(note =>
+                    <PrintNote key={note.id} note={note}/>)
+                }
+            </ul>
             <form onSubmit={addNote}>
-                <input/>
+                <input value={newNote} onChange={handleNoteChange}/>
                 <button type="submit">save</button>
             </form>
-        </>
+        </div>
     )
 }
 
