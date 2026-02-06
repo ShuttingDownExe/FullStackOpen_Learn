@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import HigherOrderFunctions from "./HigherOrderFunctions.jsx";
-import Notes from "./Notes.jsx";
+import Notes from "./notes.jsx";
 
 export default function part2(){
     const notes = [
@@ -30,6 +30,9 @@ export default function part2(){
 
             <HigherOrderFunctions/>
             <Notes notes={notes}/>
+            <Link to={"/Axios"}>
+                <button>Axios</button>
+            </Link>
         </>
     );
 }
