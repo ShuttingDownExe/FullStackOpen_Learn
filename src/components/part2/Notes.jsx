@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const PrintNote = ({note}) => {
+const PrintNote = ({note, toggleImportance}) => {
+    const label = note.important ? "Make important" : "Make unimportant"
     return(
         <li>
             {note.id} - {note.content} - {note.important ? "True" : "False"}
+            <button onClick={toggleImportance}>{label}</button>
         </li>
     )
 }
@@ -33,6 +35,11 @@ const Notes =() => {
             important: Math.random() < 0.5,
             id: String(notes.length +1)
         }
+
+        axios.post("http://localhost:3001/notes", noteObject)
+            .then(response => {
+                console.log(response.data)
+            })
 
         setNotes(notes.concat(noteObject))
         SetNewNote("")
